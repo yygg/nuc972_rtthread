@@ -395,7 +395,7 @@ void mmu_invalidate_icache()
 
 void mmu_invalidate_dcache_all()
 {
-    asm volatile ("mcr p15, 0, %0, c7, c6, 0": :"r" (0));
+    asm volatile ("mcr p15, 0, %0, c7, c10, 4": :"r" (0));
 
 }
 #endif
