@@ -12,37 +12,24 @@
  */
 
 #include <rtthread.h>
+
+#include <board.h>
+
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-extern void rt_hw_led_set(rt_uint8_t value);
-extern void MainTask(void);
 
-void gui_task_entry(void *param)
-{
-    MainTask();
-}
-
-int gui_task_start(void)
-{
-    rt_thread_t tid;
-    tid = rt_thread_create("guiDemo",
-                           gui_task_entry, RT_NULL,
-                           (16 * 1024),
-                           20,
-                           10);
-    if (tid != RT_NULL)
-        rt_thread_startup(tid);
-
-    return 0;
-}
 
 int main(void *parameter)
 {
 	printf("Hello RT-Thread !!!\n");
-	
-	gui_task_start();
+#ifdef RT_USING_EMWIN
+    {
+        extern int gui_task_start(void);
+        gui_task_start();
+    }
+#endif
 	return 0;
 }
 
