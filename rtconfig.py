@@ -20,9 +20,9 @@ elif CROSS_TOOL == 'keil':
 	PLATFORM 	= 'armcc'
 	EXEC_PATH 	= r'd:/Keil'
 else:
-    print '================ERROR============================'
-    print 'unknown platform!'
-    print '================================================='
+    print ('================ERROR============================')
+    print ('unknown platform!')
+    print ('=================================================')
     exit(0)
 
 BUILD = 'debug'
@@ -44,8 +44,8 @@ if PLATFORM == 'gcc':
     OBJCPY 		= PREFIX + 'objcopy'
 
     DEVICE 		= ' -mcpu=arm926ej-s'
-    CFLAGS 		= DEVICE
-    #CFLAGS 		= DEVICE + ' -fno-pic -fno-builtin -fno-exceptions -ffunction-sections -fno-omit-frame-pointer'
+    #CFLAGS 		= DEVICE
+    CFLAGS 		= DEVICE + ' -fno-pic -fno-builtin -fno-exceptions -ffunction-sections -fno-omit-frame-pointer'
     AFLAGS 		= ' -c' + DEVICE + ' -x assembler-with-cpp'
     AFLAGS += ' -IPlatform'
     LFLAGS 		= DEVICE + ' -Wl,--gc-sections,-Map=rtthread_nuc970.map,-cref,-u,Reset_Handler -T nuc970_ram.ld' + ' -Ttext ' + TextBase

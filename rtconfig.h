@@ -222,4 +222,7 @@
 
 /* PKG_USING_HELLO is not set */
 
+/* EMWIN config */
+#define RT_USING_EMWIN
+
 #endif
