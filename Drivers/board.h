@@ -12,6 +12,7 @@
 
 #ifndef __ASSEMBLY__
 
+#define BOARD_SDRAM_SIZE            0x04000000
 /*@{*/
 #if defined(__CC_ARM)
     extern int Image$$ER_RAM1$$ZI$$Base;
@@ -26,7 +27,9 @@ extern unsigned char 			__bss_end__;
 
 #	define BOARD_HEAP_START 		(void*)&__bss_end__
 #endif
-#define BOARD_HEAP_END           (void*)(0x04000000 - (16 * 1024 * 1024))
+
+#define BOARD_GUI_RAM_SIZE          (12 * 1024 * 1024)
+#define BOARD_HEAP_END              (void*)(BOARD_SDRAM_SIZE - BOARD_GUI_RAM_SIZE)
 
 #endif
 
@@ -58,7 +61,6 @@ extern unsigned char 			__bss_end__;
 #define BOARD_USING_ETH0
 //#define BOARD_USING_ETH1
 
-//#define ETH_VRAM_ADDR   (0x03E00000)
 /*
  *
  */
@@ -66,12 +68,19 @@ extern unsigned char 			__bss_end__;
 
 
 /* LCD config */
-#define LCD_VRAM_SIZE   (2 * 1024 * 1024)
-#define LCD_VRAM_ADDR   (0x04000000 - LCD_VRAM_SIZE)
-#define LCD_VRAM_SADDR  (0x80000000 | LCD_VRAM_ADDR)
+#define LCD_VRAM_SIZE       (2 * 1024 * 1024)
+#define LCD_VFB_SIZE        (10 * 1024 * 1024)
 
-#define LCD_VFB_SIZE    (4 * 1024 * 1024)
-#define LCD_VFB_ADDR    (LCD_VRAM_ADDR - LCD_VFB_SIZE)
-#define LCD_VFB_SADDR   (0x80000000 | LCD_VFB_ADDR)
+#if ((LCD_VRAM_SIZE + LCD_VFB_SIZE) > BOARD_GUI_RAM_SIZE)
+#  error "total size is large than the gui_ram size"
+#endif
+
+#define LCD_VRAM_ADDR       (BOARD_SDRAM_SIZE - BOARD_GUI_RAM_SIZE)
+#define LCD_VRAM_SADDR      (0x80000000 | LCD_VRAM_ADDR)
+
+#define LCD_VFB_ADDR        (LCD_VRAM_ADDR + LCD_VRAM_SIZE)
+#define LCD_VFB_SADDR       (0x80000000 | LCD_VFB_ADDR)
+
+
 
 #endif /* _BSP_NUC970_DEVBOARD_DRIVERS_BOARD_H_ */

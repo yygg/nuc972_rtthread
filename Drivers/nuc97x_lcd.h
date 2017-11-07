@@ -223,6 +223,9 @@ uint32_t vpostMPUReadData(void);
 
 #ifdef LCD_AT070TN83
 const VPOST_T DEF_AT070TN83;
+
+#define LCD_X_MAX   800
+#define LCD_Y_MAX   480
 #endif
 
 #ifdef LCD_E50A2V1
