@@ -203,6 +203,9 @@ void rt_hw_uart_init(void)
         outpw(REG_UART0_LCR, inpw(REG_UART0_LCR) | 0x7);
         outpw(REG_UART0_BAUD, 0x30000066); /* 12MHz reference clock input, 115200 */
 
+        /* Enable the UART0 Rx Interrupt */
+//        outpw(REG_UART0_IER,UART_IER_RDA_IEN_Msk|UART_IER_RLS_IEN_Msk|UART_IER_RTO_IEN_Msk|UART_IER_BUF_ERR_IEN_Msk);
+
         config.baud_rate = BAUD_RATE_115200;
 
         serial->ops    = &nuc970_uart_ops;
@@ -216,9 +219,6 @@ void rt_hw_uart_init(void)
         /* Register the UART0 ISR */
         rt_hw_interrupt_install(UART0_IRQn, nuc970_usart_isr,
                                (void *)serial, "uart0isr");
-
-        /* Enable the UART0 Rx Interrupt */
-//        outpw(REG_UART0_IER,UART_IER_RDA_IEN_Msk|UART_IER_RLS_IEN_Msk|UART_IER_RTO_IEN_Msk|UART_IER_BUF_ERR_IEN_Msk);
 
         /* Set the irq and irq trigger level for UART0 */
         rt_hw_interrupt_set_priority(UART0_IRQn,IRQ_LEVEL_7);

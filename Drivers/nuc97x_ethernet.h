@@ -166,8 +166,8 @@ extern "C" {
 #define BLENGTH         (0x01 << 20)
 
 
-#define RX_DESCRIPTOR_NUM       32      // Max Number of Rx Frame Descriptors
-#define TX_DESCRIPTOR_NUM       8       // Max number of Tx Frame Descriptors
+#define RX_DESCRIPTOR_NUM       4       // Max Number of Rx Frame Descriptors
+#define TX_DESCRIPTOR_NUM       2       // Max number of Tx Frame Descriptors
 
 #define PACKET_BUFFER_SIZE      0x600
 

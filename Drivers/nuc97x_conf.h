@@ -29,7 +29,7 @@ extern "C" {
 #include "nuc97x_timer.h"
 #include "nuc97x_uart.h"
 #include "nuc97x_ethernet.h"
-//#include "nuc970_lcd.h"
+#include "nuc97x_lcd.h"
 //#include "nuc970_usbd.h"
 //#include "nuc97x_sdio.h"
 

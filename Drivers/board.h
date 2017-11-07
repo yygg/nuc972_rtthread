@@ -19,15 +19,14 @@
     extern int Image$$ER_RAM1$$ZI$$Limit;
 
 #	define BOARD_HEAP_START        (void*)&Image$$ER_RAM1$$ZI$$Limit
-#	define BOARD_HEAP_END          (void*)0x04000000
 
 #elif (defined (__GNUC__))
 extern unsigned char 			__bss_start__;
 extern unsigned char 			__bss_end__;
 
 #	define BOARD_HEAP_START 		(void*)&__bss_end__
-#	define BOARD_HEAP_END  			(void*)(0x04000000 - 0x400000)
 #endif
+#define BOARD_HEAP_END           (void*)(0x04000000 - (16 * 1024 * 1024))
 
 #endif
 
@@ -58,10 +57,21 @@ extern unsigned char 			__bss_end__;
  */
 #define BOARD_USING_ETH0
 //#define BOARD_USING_ETH1
+
+//#define ETH_VRAM_ADDR   (0x03E00000)
 /*
  *
  */
 //#define APPFS_USING_SPIFFS
 
+
+/* LCD config */
+#define LCD_VRAM_SIZE   (2 * 1024 * 1024)
+#define LCD_VRAM_ADDR   (0x04000000 - LCD_VRAM_SIZE)
+#define LCD_VRAM_SADDR  (0x80000000 | LCD_VRAM_ADDR)
+
+#define LCD_VFB_SIZE    (4 * 1024 * 1024)
+#define LCD_VFB_ADDR    (LCD_VRAM_ADDR - LCD_VFB_SIZE)
+#define LCD_VFB_SADDR   (0x80000000 | LCD_VFB_ADDR)
 
 #endif /* _BSP_NUC970_DEVBOARD_DRIVERS_BOARD_H_ */

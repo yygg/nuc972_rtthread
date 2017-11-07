@@ -4,11 +4,10 @@ cwd = GetCurrentDir()
 src = Glob('*.c') + Glob('*.cpp')
 
 if not GetDepend('RT_USING_LWIP'):
-	SrcRemove(src,'nuc97x_ethernet.c')
-
-
+	SrcRemove(src,'tcpserver.c')
+	
 CPPPATH = [cwd, str(Dir('#'))]
 
-group = DefineGroup('Drivers', src, depend = [''], CPPPATH = CPPPATH)
+group = DefineGroup('Applications', src, depend = [''], CPPPATH = CPPPATH)
 
 Return('group')
